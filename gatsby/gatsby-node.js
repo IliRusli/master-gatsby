@@ -1,4 +1,4 @@
-import path from "path";
+import path, { resolve } from "path";
 import fetch from "isomorphic-fetch";
 
 async function fetchBeersAndTurnIntoNodes({
@@ -108,6 +108,18 @@ async function turnSlicemastersIntoPages({ graphql, actions }) {
       }
     }
   `);
+
+  // Turn each slicemaster into their own page
+  data.slicemasters.nodes.forEach((slicemaster) => {
+    actions.createPage({
+      component: resolve("./src/templates/Slicemaster.js"),
+      path: `/slicemaster/${slicemaster.slug.current}`,
+      context: {
+        name: slicemaster.person,
+        slug: slicemaster.slug.current,
+      },
+    });
+  });
 
   // Figure out how many pages there are base on the total count of slicemasters and page size
   const pageSize = parseInt(process.env.GATSBY_PAGE_SIZE);
