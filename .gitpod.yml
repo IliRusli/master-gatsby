@@ -1,6 +1,6 @@
 # Commands to start on workspace startup
 tasks:
-  - init: cd gatsby
+  - init: cd gatsby && npm install
     command: npm start
 # Ports to expose on workspace startup
 ports:
