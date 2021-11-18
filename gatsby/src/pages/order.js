@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import SEO from "../components/SEO";
 import useForm from "../utils/useForm";
 import Img from "gatsby-image";
@@ -9,6 +9,7 @@ import MenuItemStyles from "../styles/MenuItemStyles";
 import usePizza from "../utils/usePizza";
 import PizzaOrder from "../components/PizzaOrder";
 import calculateOrderTotal from "../utils/calculateOrderTotal";
+import { graphql } from "gatsby";
 
 export default function OrderPage({ data }) {
   const pizzas = data.pizzas.nodes;
@@ -21,8 +22,6 @@ export default function OrderPage({ data }) {
     pizzas,
     inputs: values,
   });
-
-  console.log({ order }, "pooooo");
 
   return (
     <>
@@ -55,11 +54,14 @@ export default function OrderPage({ data }) {
                 fluid={pizza.image.asset.fluid}
                 alt={pizza.name}
               />
-              <div>{pizza.name}</div>
+              <div>
+                <h2>{pizza.name}</h2>
+              </div>
               <div>
                 {["S", "M", "L"].map((size) => (
                   <button
                     type="button"
+                    key={size}
                     onClick={() =>
                       addToOrder({
                         id: pizza.id,
