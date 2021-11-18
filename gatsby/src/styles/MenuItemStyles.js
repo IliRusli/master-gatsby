@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const MenuItemStyles = styled.form`
+const MenuItemStyles = styled.div`
   display: grid;
   grid-template-columns: 100px 1fr;
   grid-template-rows: 1fr 1fr;
