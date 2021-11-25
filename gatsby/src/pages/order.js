@@ -16,6 +16,7 @@ export default function OrderPage({ data }) {
   const { values, updateValue } = useForm({
     name: "",
     email: "",
+    nasiLemak: "",
   });
 
   const {
@@ -39,7 +40,7 @@ export default function OrderPage({ data }) {
     <>
       <SEO title={"Order a pizza"} />
       <OrderStyles onSubmit={submitOrder}>
-        <fieldset>
+        <fieldset disabled={loading}>
           <legend>Your Info</legend>
           <label htmlFor="name">Name</label>
           <input
@@ -55,8 +56,15 @@ export default function OrderPage({ data }) {
             value={values.email}
             onChange={updateValue}
           ></input>
+          <input
+            type="nasiLemak"
+            name="nasiLemak"
+            value={values.nasiLemak}
+            onChange={updateValue}
+            className="nasiLemak"
+          ></input>
         </fieldset>
-        <fieldset className="menu">
+        <fieldset className="menu" disabled={loading}>
           <legend>Menu</legend>
           {pizzas.map((pizza) => (
             <MenuItemStyles key={pizza.id}>

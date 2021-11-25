@@ -15,6 +15,9 @@ const OrderStyles = styled.form`
     &.menu {
       grid-column: span 1;
     }
+    .nasiLemak {
+      display: none;
+    }
     @media (maxwidth: 900px) {
       fieldset.menu,
       fieldset.order {

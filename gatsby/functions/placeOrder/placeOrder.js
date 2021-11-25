@@ -6,12 +6,14 @@ function generateOrderEmail({ order, total }) {
   <h2>Your recent order total is ${total}</h2>
   <p>Please start walking over. We will have your order ready in 20 minutes</p>
   <ul>
-  ${order.map(
-    (item) => `<li>
+  ${order
+    .map(
+      (item) => `<li>
   <img src="${item.thumbnail}" alt="${item.name}"/>
   ${item.size} ${item.name} - ${item.price}
   </li>`
-  ).join('')}
+    )
+    .join("")}
   </ul>
   <p>Your total is <strong>${total}</strong> due at pickup</p>
   <style>
@@ -32,9 +34,25 @@ const transporter = nodemailer.createTransport({
   },
 });
 
+function wait(ms = 0) {
+  return new Promise((resolve, reject) => {
+    setTimeout(resolve, ms);
+  });
+}
+
 exports.handler = async (event, context) => {
+  await wait(5000);
   const body = JSON.parse(event.body);
 
+  if (body.nasiLemak) {
+    return {
+      status: 400,
+      body: JSON.stringify({
+        message: "ERROR 414: Boop beep bop, good bye!",
+      }),
+    };
+  }
+  
   //validate
   const requiredFields = ["name", "email", "order"];
   for (const field of requiredFields) {
@@ -46,6 +64,15 @@ exports.handler = async (event, context) => {
         }),
       };
     }
+  }
+
+  if (!body.order.length) {
+    return {
+      status: 400,
+      body: JSON.stringify({
+        message: `Why would you order nothing?!`,
+      }),
+    };
   }
 
   // Send email

@@ -30,12 +30,13 @@ export default function usePizza({ pizzas, values }) {
       total: formatMoney(calculateOrderTotal(order, pizzas)),
       name: values.name,
       email: values.email,
+      nasiLemak: values.nasiLemak,
     };
 
     // send this data to serverless function when user checkout
     // TODO move url to env
     const res = await fetch(
-      "https://8888-aquamarine-wildcat-5159h8za.ws-us18.gitpod.io/.netlify/functions/placeOrder",
+      "https://8888-gray-anaconda-nufzydp2.ws-us17.gitpod.io/.netlify/functions/placeOrder",
       {
         method: "POST",
         headers: {
