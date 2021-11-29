@@ -52,7 +52,7 @@ export default function useLatestData() {
         // TODO: checl for errors
         // set the data to state
         setHotSlices(res.data.StoreSettings.hotSlices);
-        setSlicemasters(res.data.StoreSettings.slicemaster);
+        setSlicemasters(res.data.StoreSettings.slicemasters);
       })
       .catch((err) => {
         console.log("SHOOOOOT");
