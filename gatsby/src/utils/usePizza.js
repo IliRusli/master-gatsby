@@ -36,7 +36,7 @@ export default function usePizza({ pizzas, values }) {
     // send this data to serverless function when user checkout
     // TODO move url to env
     const res = await fetch(
-      "https://8888-gray-anaconda-nufzydp2.ws-us17.gitpod.io/.netlify/functions/placeOrder",
+      `${process.env.GATSBY_SERVERLESS_BASE}/placeOrder`,
       {
         method: "POST",
         headers: {
